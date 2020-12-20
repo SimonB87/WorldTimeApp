@@ -10,31 +10,36 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
   void getTime() async {
-    Response response = await get("https://worldtimeapi.org/api/timezone/Europe/London");
-    String myData = response.body;
-    Map data = jsonDecode(myData);
-    print(data);
+    // make the request
+    Response response = await get('http://worldtimeapi.org/api/timezone/Europe/London');
+    Map data = jsonDecode(response.body);
+    //print(data);
 
-    // - get properties from data
+    // get properties from json
     String datetime = data['datetime'];
-    String offset = data['utc_offset'];
-    //String offset = data['utc_offset'].substring(1,3);
+    String offsetOriginal = data['utc_offset'].substring(2,3);
+    String offset = offsetOriginal;
 
-    print(datetime);
-    print(offset);
+    //edit offset value
+    String offsetOver10 = data['utc_offset'].substring(1,2);
+    if (offsetOver10 == "1") {
+      offset = "1" + offset;
+    }
+    String offsetSign = data['utc_offset'].substring(0,1);
+    if (offsetSign == "-") {
+      offset = "-" + offset;
+    }
 
-    //offset = offset.substring(1,3);
-
+    //print(datetime);
     //print(offset);
 
-    // - create datetime object
+    // create DateTime object
     DateTime now = DateTime.parse(datetime);
-    //now.add(Duration(hours: offset));
+    if ( offsetOriginal != "0" ) {
+      now = now.add(Duration(hours: int.parse(offset)));
+    }
     print(now);
-
   }
-
-  int counter = 0;
 
   @override
   void initState() {
@@ -45,7 +50,8 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Loading Screen"),
+      body: Text('loading screen'),
     );
   }
 }
+

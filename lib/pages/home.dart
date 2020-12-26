@@ -45,11 +45,11 @@ class _HomeState extends State<Home> {
                     Navigator.pushNamed(context, '/location');
                   },
                   icon: Icon(Icons.edit_location,
-                      color: Colors.redAccent,),
+                      color: Colors.orangeAccent,),
                   label: Text(
                     'Edit Location',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.blue[100],
                     ),
                   )
                 ),
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                           fontSize: 28.0,
                           letterSpacing: 2.0,
-                          color: Colors.white,
+                          color: Colors.blue[100],
                         ),),
                   ],
                 ),
@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
                   data["time"],
                   style: TextStyle(
                     fontSize: 66.0,
-                    color: Colors.white,
+                    color: Colors.blue[100],
                   ),
                 )
               ],
